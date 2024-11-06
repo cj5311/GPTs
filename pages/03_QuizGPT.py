@@ -18,9 +18,9 @@ output_parser = JsonOutputParser()
 page_title = "QuizeGPT"
 st.set_page_config(
     page_title=page_title,
-    page_icon="😁",
+    page_icon="❓",
 )
-st.title(page_title)
+st.title("❓ " +page_title)
 
 def format_docs(docs):
     '''
@@ -271,13 +271,9 @@ with st.sidebar :
 
 if not docs : 
     st.markdown("""
-                 Welcome to QuizGPT.
-                 
-                 i will make a quiz from Wikipedia articles or files you upload to test
-                 your knowledge and help you study.
-                 
-                 Get started by uploading a file or searching on Wikipedia in the sidebar.
-                 """)
+                 AI가 출제자가 되어 시험문제를 출력해 줍니다.  
+                 사이드파에 파일을 업로드 하거나, 위키피디아 검색을 위한 키워드를 입력하세요.   
+                """)
 else : 
     
     

@@ -14,16 +14,14 @@ import os
 page_title = "InvestorGPT"
 st.set_page_config(
     page_title=page_title,
-    page_icon="😁",
+    page_icon="📈",
 )
-st.title(page_title)
+st.title("📈 "+page_title)
 
 st.markdown(
     '''
-    Welcome to InvestorGPT.
-    
-    
-    Write down the name of a company and our Agent will do the research for you.
+    AI가 회사정보를 탐색하여 인사이트를 도출해 줍니다.    
+    아래에 회사명을 입력하세요.
     '''
     )
 

@@ -11,16 +11,15 @@ from langchain.prompts import ChatPromptTemplate
 page_title = "SiteGPT"
 st.set_page_config(
     page_title=page_title,
-    page_icon="😁",
+    page_icon="🖥️",
 )
-st.title(page_title)
+st.title("🖥️ "+page_title)
 
 html2txt_transformer = Html2TextTransformer()
 
 st.markdown('''
-            Ask questions about the content of a website.
-              
-            Startby writing the URL of the website on the sidebar.
+           AI챗봇이 사이트 내용을 검토하여 답변해 줍니다.   
+           사이드바에 사이트 주소를 입력해 주세요.
             ''')
 
 

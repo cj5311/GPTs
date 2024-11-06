@@ -26,7 +26,7 @@ from langchain.chat_models import ChatOpenAI, ChatOllama
 page_title = "PrivateGPT"
 st.set_page_config(
     page_title=page_title,
-    page_icon="😁",
+    page_icon="🔒",
 )
 
 # 세션초기화     
@@ -156,14 +156,11 @@ def invoke_chain(question) :
     return result
         
 # 기본레이어 부 --------------------------------------------------------  
-st.title("PrivateGPT")
 
-#사용자에게 파일요청
 st.markdown("""
-            welcome!
-            Use this cahtbot to ask questions to an AI about your files!
-            Upload your files on the sidebar.
-            
+            # 🔒PrivateGPT
+            로컬환경에서 작동하는 AI챗봇입니다.    
+            사이드바에 파일을 업로드 하세요.            
             """)
 
 with st.sidebar : 

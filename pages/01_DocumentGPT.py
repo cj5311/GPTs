@@ -22,7 +22,7 @@ from langchain.memory import ConversationSummaryBufferMemory, ConversationBuffer
 
 st.set_page_config(
     page_title="DocumentGPT",
-    page_icon="😁",
+    page_icon="📃",
 )
 
 # 세션초기화     
@@ -153,14 +153,12 @@ def invoke_chain(question) :
     return result
         
 # 기본레이어 부 --------------------------------------------------------  
-st.title("DocumentGPT")
+st.title("📃DocumentGPT")
 
 #사용자에게 파일요청
 st.markdown("""
-            welcome!
-            Use this cahtbot to ask questions to an AI about your files!
-            Upload your files on the sidebar.
-            
+            이 챗봇을 사용하여 AI에게 파일에 대해 질문하세요!     
+            사이드바에 파일을 업로드 하세요.  
             """)
 
 with st.sidebar : 

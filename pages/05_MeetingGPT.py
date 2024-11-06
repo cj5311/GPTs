@@ -18,15 +18,13 @@ from langchain.storage import LocalFileStore
 page_title = "MeetingGPT"
 st.set_page_config(
     page_title=page_title,
-    page_icon="😁",
+    page_icon="📹",
 )
-st.title(page_title)
+st.title("📹 "+page_title)
 
 st.markdown('''
-            Welcome to MeetingGPT, upload a video and i will give you a transcript,
-            a summary and a chat bot to ask any questions about it.
-              
-            Get started by uploading a video file in the sidebar.
+            AI가 회의나 인터뷰 영상을 요약하고 질문에 대해 답변해 줍니다.                 
+            사이드바에 동영상파일을 업로드 하세요.
             ''')
 
 with st.sidebar : 
