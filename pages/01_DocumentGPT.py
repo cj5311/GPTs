@@ -2,7 +2,7 @@ from typing import Dict, List
 from uuid import UUID
 import streamlit as st
 import time
-
+import openai
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.document_loaders import TextLoader, PyPDFLoader, UnstructuredFileLoader
@@ -162,15 +162,30 @@ st.markdown("""
             """)
 
 with st.sidebar : 
-    file  = st.file_uploader("Upload a .txt .pdf or .docx file", type = ["pdf", "txt", "docx"])
+      
+    file_load_flag = True
+    api_key = st.session_state.get("api_key", None)
+
+    if api_key: 
+        if st.session_state.api_key_check :
+            st.success("✔️ API confirmed successfully.")  
+            file_load_flag = False
+            
+        else : 
+            st.warning("Please enter your API key on the main(home) page.")
+    else:
+        st.warning("Please enter your API key on the main(home) page.")  
+    
+    file  = st.file_uploader("Upload a .txt .pdf or .docx file", type = ["pdf", "txt", "docx"], disabled=file_load_flag)
     
 # 로직 구현 -------------------------------------------------------------
 
 llm = ChatOpenAI(
-    temperature = 0.1,
-    streaming = True, # 문자 타이핑 플레이 효과, 일부모델에서는 지원안함
-    callbacks = [ChatCallbackHandler()]
-) 
+            api_key=api_key,
+            temperature = 0.1,
+            streaming = True, # 문자 타이핑 플레이 효과, 일부모델에서는 지원안함
+            callbacks = [ChatCallbackHandler()]
+            ) 
 
 prompt = ChatPromptTemplate.from_messages([
     ("system","""Answer the question using the following context. If you don't know the answer just say you don't know. Don't make anything up.

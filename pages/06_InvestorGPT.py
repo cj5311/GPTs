@@ -25,7 +25,20 @@ st.markdown(
     '''
     )
 
-company = st.text_input("Write the name of the company you are interested on.")
+file_load_flag = True
+api_key = st.session_state.get("api_key", None)
+
+if api_key: 
+    if st.session_state.api_key_check :
+        st.success("✔️ API confirmed successfully.")  
+        file_load_flag = False
+        
+    else : 
+        st.warning("Please enter your API key on the main(home) page.")
+else:
+    st.warning("Please enter your API key on the main(home) page.") 
+        
+company = st.text_input("Write the name of the company you are interested on.", disabled=file_load_flag)
 
 #======================================================================
 

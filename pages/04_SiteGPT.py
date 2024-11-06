@@ -151,7 +151,21 @@ def load_website(url):
 
 
 with st.sidebar:
-    url = st.text_input("Write down a URL", placeholder="https://excample.com")
+    file_load_flag = True
+    api_key = st.session_state.get("api_key", None)
+
+    if api_key: 
+        if st.session_state.api_key_check :
+            st.success("✔️ API confirmed successfully.")  
+            file_load_flag = False
+            
+        else : 
+            st.warning("Please enter your API key on the main(home) page.")
+    else:
+        st.warning("Please enter your API key on the main(home) page.") 
+        
+        
+    url = st.text_input("Write down a URL", placeholder="https://excample.com", disabled=file_load_flag )
     
 if url :
     # #async chromium loader : 해당링크의 브라우저를 직접 열어서 사용하기때문에 속도저하로 많은 링크작업에 부적합, 많은양의 자바스크립트를 사용하는 유아이에 작업 가능

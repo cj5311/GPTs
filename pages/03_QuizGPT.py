@@ -251,15 +251,26 @@ def split_file(file):
     
 with st.sidebar :
     
+    file_load_flag = True
+    api_key = st.session_state.get("api_key", None)
+
+    if api_key: 
+        if st.session_state.api_key_check :
+            st.success("✔️ API confirmed successfully.")  
+            file_load_flag = False
+            
+        else : 
+            st.warning("Please enter your API key on the main(home) page.")
+    else:
+        st.warning("Please enter your API key on the main(home) page.")
+        
     docs = None
     topic = None
     choice = st.selectbox(
-        "Choose what you want to use.", 
-        ("file",
-         "Wikipedia Article")
+        "Choose what you want to use.", ("file","Wikipedia Article"), disabled= file_load_flag,
         )
     if choice == "file" : 
-        file = st.file_uploader("Upload a .docx, .txt or .pdf file", type = ["pdf", "txt", "docx"])
+        file = st.file_uploader("Upload a .docx, .txt or .pdf file", type = ["pdf", "txt", "docx"], disabled= file_load_flag,)
         if file : 
             docs = split_file(file)
     else : 

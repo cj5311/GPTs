@@ -164,15 +164,23 @@ st.markdown("""
             """)
 
 with st.sidebar : 
-    file  = st.file_uploader("Upload a .txt .pdf or .docx file", type = ["pdf", "txt", "docx"])
+
+    file_load_flag = True
+    api_key = st.session_state.get("api_key", None)
+
+    if api_key: 
+        if st.session_state.api_key_check :
+            st.success("✔️ API confirmed successfully.")  
+            file_load_flag = False
+            
+        else : 
+            st.warning("Please enter your API key on the main(home) page.")
+    else:
+        st.warning("Please enter your API key on the main(home) page.") 
+        
+    file  = st.file_uploader("Upload a .txt .pdf or .docx file", type = ["pdf", "txt", "docx"], disabled=file_load_flag)
     
 # 로직 구현 -------------------------------------------------------------
-
-# llm = ChatOpenAI(
-#     temperature = 0.1,
-#     streaming = True, # 문자 타이핑 플레이 효과, 일부모델에서는 지원안함
-#     callbacks = [ChatCallbackHandler()]
-# ) 
 
 llm = ChatOllama(
     model = "mistral:latest",
@@ -182,19 +190,6 @@ llm = ChatOllama(
     # callbacks = [ChatCallbackHandler()]
 ) 
 
-
-# prompt = ChatPromptTemplate.from_messages([
-#     ("system","""Answer the question using the following context. If you don't know the answer just say you don't know. Don't make anything up.
-#                 Context: {context} 
-                
-#                 And you will get about summaried context of previous chat. If it's empty you don't have to care
-#                 Previous-chat-context: {history}
-
-#                 """
-#     ),
-#     MessagesPlaceholder(variable_name="history"),
-#     ("human","""{question}""")
-# ])
 
 # mistral 이 instructor 기반이기 때문에 스트링으로 변환
 prompt = ChatPromptTemplate.from_messages({
