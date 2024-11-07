@@ -24,11 +24,13 @@ st.markdown('''
 
 api_key = st.session_state.get("api_key", None)
 
-llm = ChatOpenAI(
-        temperature=0.1,
-        model="gpt-4o-mini",
-        api_key=api_key,
-    )
+if st.session_state.api_key_check : 
+    
+    llm = ChatOpenAI(
+            temperature=0.1,
+            model="gpt-4o-mini",
+            api_key=api_key,
+        )
 
 answers_prompt = ChatPromptTemplate.from_template(
     """
