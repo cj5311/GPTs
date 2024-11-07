@@ -22,9 +22,12 @@ st.markdown('''
            사이드바에 사이트 주소를 입력해 주세요.
             ''')
 
+        
 api_key = st.session_state.get("api_key", None)
+api_key_check = st.session_state.get("api_key_check", None)
 
-if st.session_state.api_key_check : 
+
+if api_key_check : 
     
     llm = ChatOpenAI(
             temperature=0.1,

@@ -28,9 +28,12 @@ def format_docs(docs):
     '''
     return "\n\n".join(document.page_content for document in docs)
 
+        
 api_key = st.session_state.get("api_key", None)
+api_key_check = st.session_state.get("api_key_check", None)
 
-if st.session_state.api_key_check : 
+
+if api_key_check : 
     llm = ChatOpenAI(
             temperature=0.1,
             model="gpt-4o-mini",
