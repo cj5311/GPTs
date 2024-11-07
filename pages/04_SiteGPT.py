@@ -22,11 +22,14 @@ st.markdown('''
            사이드바에 사이트 주소를 입력해 주세요.
             ''')
 
+api_key = st.session_state.get("api_key", None)
 
 llm = ChatOpenAI(
-    temperature=0.1,
-    
-)
+        temperature=0.1,
+        model="gpt-4o-mini",
+        api_key=api_key,
+    )
+
 answers_prompt = ChatPromptTemplate.from_template(
     """
     Using OnLY the following context answer the user's qewstion.
@@ -152,8 +155,7 @@ def load_website(url):
 
 with st.sidebar:
     file_load_flag = True
-    api_key = st.session_state.get("api_key", None)
-
+    
     if api_key: 
         if st.session_state.api_key_check :
             st.success("✔️ API confirmed successfully.")  

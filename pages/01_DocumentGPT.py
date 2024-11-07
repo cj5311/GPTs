@@ -180,43 +180,46 @@ with st.sidebar :
     
 # 로직 구현 -------------------------------------------------------------
 
-llm = ChatOpenAI(
+
+
+    
+# 사용자 입력 파일이 있을때
+if file : 
+    
+    llm = ChatOpenAI(
             api_key=api_key,
             temperature = 0.1,
             streaming = True, # 문자 타이핑 플레이 효과, 일부모델에서는 지원안함
             callbacks = [ChatCallbackHandler()]
             ) 
 
-prompt = ChatPromptTemplate.from_messages([
-    ("system","""Answer the question using the following context. If you don't know the answer just say you don't know. Don't make anything up.
-                Context: {context} 
-                
-                And you will get about summaried context of previous chat. If it's empty you don't have to care
-                Previous-chat-context: {history}
+    prompt = ChatPromptTemplate.from_messages([
+        ("system","""Answer the question using the following context. If you don't know the answer just say you don't know. Don't make anything up.
+                    Context: {context} 
+                    
+                    And you will get about summaried context of previous chat. If it's empty you don't have to care
+                    Previous-chat-context: {history}
 
-                """
-    ),
-    MessagesPlaceholder(variable_name="history"),
-    ("human","""{question}""")
-])
-
-
+                    """
+        ),
+        MessagesPlaceholder(variable_name="history"),
+        ("human","""{question}""")
+    ])
 
 
 
-if st.session_state["memory"] is None:
-    
-    st.session_state["memory"] = ConversationBufferMemory(
-                                    llm = llm,
-                                    max_token_limit = 150,
-                                    return_messages=True
-                                )
-    
-memory = st.session_state["memory"]
 
-    
-# 사용자 입력 파일이 있을때
-if file : 
+
+    if st.session_state["memory"] is None:
+        
+        st.session_state["memory"] = ConversationBufferMemory(
+                                        llm = llm,
+                                        max_token_limit = 150,
+                                        return_messages=True
+                                    )
+        
+    memory = st.session_state["memory"]
+
     
     # rag 수행
     retriever =  embed_file(file)

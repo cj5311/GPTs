@@ -180,46 +180,43 @@ with st.sidebar :
         
     file  = st.file_uploader("Upload a .txt .pdf or .docx file", type = ["pdf", "txt", "docx"], disabled=file_load_flag)
     
-# 로직 구현 -------------------------------------------------------------
+    
 
-llm = ChatOllama(
+# 사용자 입력 파일이 있을때
+if file : 
+    llm = ChatOllama(
     model = "mistral:latest",
     # model ="gemma2:2b ",
     temperature = 0.1,
     streaming = True, # 문자 타이핑 플레이 효과, 일부모델에서는 지원안함
     # callbacks = [ChatCallbackHandler()]
-) 
+    ) 
 
 
-# mistral 이 instructor 기반이기 때문에 스트링으로 변환
-prompt = ChatPromptTemplate.from_messages({
-    """
-    Answer the question using ONLY the following context and not your training data.
-    If you don't know the answer just say you don't know.
-    Don't make anything up.
-    
-    Context: {context} 
-    Question: {question}
-    """
-}
-)
+    # mistral 이 instructor 기반이기 때문에 스트링으로 변환
+    prompt = ChatPromptTemplate.from_messages({
+        """
+        Answer the question using ONLY the following context and not your training data.
+        If you don't know the answer just say you don't know.
+        Don't make anything up.
+        
+        Context: {context} 
+        Question: {question}
+        """
+    }
+    )
 
 
-if st.session_state["memory"] is None:
-    
-    st.session_state["memory"] = ConversationBufferMemory(
-                                    llm = llm,
-                                    max_token_limit = 150,
-                                    return_messages=True
-                                )
+    if st.session_state["memory"] is None:
+        
+        st.session_state["memory"] = ConversationBufferMemory(
+                                        llm = llm,
+                                        max_token_limit = 150,
+                                        return_messages=True
+                                    )
 
 
-memory = st.session_state["memory"]
-    
-
-# 사용자 입력 파일이 있을때
-if file : 
-    
+    memory = st.session_state["memory"]
     # rag 수행
     retriever =  embed_file(file)
 

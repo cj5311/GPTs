@@ -28,9 +28,12 @@ def format_docs(docs):
     '''
     return "\n\n".join(document.page_content for document in docs)
 
+api_key = st.session_state.get("api_key", None)
+
 llm = ChatOpenAI(
         temperature=0.1,
-        model="gpt-3.5-turbo-1106",
+        model="gpt-4o-mini",
+        api_key=api_key,
         streaming=True,
         callbacks=[StreamingStdOutCallbackHandler()]
     )
@@ -252,7 +255,7 @@ def split_file(file):
 with st.sidebar :
     
     file_load_flag = True
-    api_key = st.session_state.get("api_key", None)
+    
 
     if api_key: 
         if st.session_state.api_key_check :
@@ -279,6 +282,9 @@ with st.sidebar :
         if topic : 
             
             docs = wiki_search(topic)
+
+
+
 
 if not docs : 
     st.markdown("""
